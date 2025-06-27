@@ -1,0 +1,74 @@
+{
+  "start_time": "2025-06-26T16:33:22.179921",
+  "system_specs": {
+    "os": "Darwin",
+    "python_version": "3.12.0",
+    "tensorflow_version": "2.19.0",
+    "total_ram_gb": 8.0,
+    "cpu_cores": 8,
+    "gpu_available": false
+  },
+  "hyperparameters": {
+    "img_height": 224,
+    "img_width": 224,
+    "batch_size": 32
+  },
+  "architecture": "mobilenet",
+  "total_params": 2422597,
+  "training_time": 811.1223962306976,
+  "resource_usage": {
+    "start": {
+      "cpu_percent": 19.8,
+      "memory_percent": 81.9,
+      "available_memory_gb": 1.45
+    },
+    "end": {
+      "cpu_percent": 80.6,
+      "memory_percent": 80.3,
+      "available_memory_gb": 1.58
+    }
+  },
+  "evaluation": {
+    "accuracy": 0.8507347254447022,
+    "class_metrics": {
+      "daisy": {
+        "precision": 0.8273092369477911,
+        "recall": 0.8995633187772926,
+        "f1_score": 0.8619246861924685,
+        "support": 229.0
+      },
+      "dandelion": {
+        "precision": 0.84375,
+        "recall": 0.9428571428571428,
+        "f1_score": 0.8905547226386806,
+        "support": 315.0
+      },
+      "rose": {
+        "precision": 0.8860103626943006,
+        "recall": 0.7276595744680852,
+        "f1_score": 0.7990654205607477,
+        "support": 235.0
+      },
+      "sunflower": {
+        "precision": 0.8340807174887892,
+        "recall": 0.8493150684931506,
+        "f1_score": 0.841628959276018,
+        "support": 219.0
+      },
+      "tulip": {
+        "precision": 0.8695652173913043,
+        "recall": 0.8135593220338984,
+        "f1_score": 0.840630472854641,
+        "support": 295.0
+      }
+    },
+    "inference_stats": {
+      "mean_inference_time": 0.054521344602108,
+      "std_inference_time": 0.06557779483324547,
+      "min_inference_time": 0.04031491279602051,
+      "max_inference_time": 0.4192659854888916,
+      "images_per_second": 18.34144053669095
+    }
+  },
+  "end_time": "2025-06-26T16:50:48.585683"
+}
