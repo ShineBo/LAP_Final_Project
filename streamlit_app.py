@@ -137,25 +137,39 @@ def create_confidence_chart(predictions):
     flowers = list(predictions.keys())
     confidences = [predictions[flower] * 100 for flower in flowers]
     
-    # Create color scale based on confidence
-    colors = ['#FF6B6B' if conf < 20 else '#FFE66D' if conf < 50 else '#4ECDC4' 
-              for conf in confidences]
+    # Create discrete colors based on confidence levels
+    colors = []
+    for conf in confidences:
+        if conf < 20:
+            colors.append('#FF6B6B')  # Red for low confidence
+        elif conf < 50:
+            colors.append('#FFE66D')  # Yellow for medium confidence  
+        else:
+            colors.append('#4ECDC4')  # Green for high confidence
     
-    fig = px.bar(
-        x=flowers,
-        y=confidences,
-        title="Prediction Confidence for Each Flower Type",
-        labels={'x': 'Flower Type', 'y': 'Confidence (%)'},
-        color=confidences,
-        color_continuous_scale=['#FF6B6B', '#FFE66D', '#4ECDC4']
-    )
+    # Sort data by confidence (highest to lowest)
+    sorted_data = sorted(zip(flowers, confidences, colors), key=lambda x: x[1], reverse=True)
+    sorted_flowers, sorted_confidences, sorted_colors = zip(*sorted_data)
+    
+    fig = go.Figure(data=[
+        go.Bar(
+            x=list(sorted_flowers),
+            y=list(sorted_confidences),
+            marker_color=list(sorted_colors),
+            text=[f'{conf:.1f}%' for conf in sorted_confidences],
+            textposition='auto',
+        )
+    ])
     
     fig.update_layout(
+        title="Prediction Confidence for Each Flower Type",
+        xaxis_title="Flower Type",
+        yaxis_title="Confidence (%)",
         title_font_size=16,
         xaxis_title_font_size=14,
         yaxis_title_font_size=14,
-        showlegend=False,
-        height=400
+        height=400,
+        showlegend=False
     )
     
     return fig
@@ -254,12 +268,8 @@ def main():
             help="Upload a clear image of a flower for best results"
         )
         
-        # Camera input option
-        st.subheader("📷 Or take a photo")
-        camera_image = st.camera_input("Take a picture of a flower")
-        
-        # Use camera image if available, otherwise use uploaded file
-        image_source = camera_image if camera_image is not None else uploaded_file
+        # Use uploaded file
+        image_source = uploaded_file
         
         if image_source is not None:
             # Display the image
